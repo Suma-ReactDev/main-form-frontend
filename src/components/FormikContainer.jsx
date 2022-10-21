@@ -4,6 +4,7 @@ import {Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import {useUserContext} from './store/usercontext'
 import {Link} from 'react-router-dom'
+import { formikcontrol } from './store/data'
 const FormikContainer = () => {
   const {addFormData} = useUserContext();
   const dropdownOptions = [
@@ -44,12 +45,16 @@ const FormikContainer = () => {
             mx-auto bg-slate-200 rounded shadow-lg p-3'>
                 
             <h3 className='text-3xl text-zinc-600 font-bold'>Registration Form</h3>
-            <FormikControl control='input' type='text' label='Name' name='name' placeholder='Full Name'/>
+            {formikcontrol.map(
+              (item)=>
+              <FormikControl control={item.control} name={item.name} key={item.name} {...item} />
+            )}
+            {/* <FormikControl control='input' type='text' label='Name' name='name' placeholder='Full Name'/>
             <FormikControl control='input' type='email' label='Email' name='email' placeholder='Email'/>
             <FormikControl control='input' type='text' label='Profession' name='profession' placeholder='Profession'/>
-            <FormikControl control='input' type='number' label='Age' name='age'placeholder='Age' step={1} min={20}/>
+            <FormikControl control='input' type='number' label='Age' name='age' placeholder='Age' step={1} min={20}/>
             <FormikControl control='select' label='Gender' name='gender' options={dropdownOptions}/>
-            <FormikControl control='date'  label='Date of Birth' name='doB'/>
+            <FormikControl control='date'  label='Date of Birth' name='doB'/> */}
             <button type='submit' className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold'>
               SUBMIT</button>
             <button type='button' className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold' 

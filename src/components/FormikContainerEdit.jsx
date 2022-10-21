@@ -20,7 +20,7 @@ const FormikContainer = () => {
       validationSchema={Yup.object({
         name:Yup.string()
         .required('Full Name is required')
-        .matches(/^[A-Z]+[a-zA-Z]+$/,{ message: <em>Full Name is not Valid</em> }),
+        .matches(/^[A-Z]+\.?[a-zA-Z]+\s?[A-Z]?[a-zA-Z]\w*$/,{ message: <em>Full Name is not Valid</em> }),
         email:Yup.string().email('It must be a valid Email').required('Email is required'),
         profession:Yup.string()
         .required('Profession is required')
@@ -29,13 +29,14 @@ const FormikContainer = () => {
         doB:Yup.date().required('Date of Birth is required'),
         gender:Yup.string().required('Please select gender'),
       })}
-      onSubmit={(values)=>{
+      onSubmit={(values, {resetForm})=>{
         alert(JSON.stringify(values, null, 2))
         if (values){
           console.log('Values can be updated')
           updateUser(values)
-        } 
-      }}
+          resetForm({values:''})
+          console.log(values)
+        }}}
       >
         {formik => {
           console.log(formik)
