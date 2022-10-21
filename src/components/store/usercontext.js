@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import http from "../http";
 import Moment from 'moment'
+import { useCallback } from "react";
 const UserContext = createContext("");
 export const useUserContext = () => useContext(UserContext);
 export const ContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
+  const [usersChanged, setUsersChanged] = useState(false)
   const [singleUser, setSingleUser] = useState({
     name: "",
     email: "",
@@ -14,15 +16,17 @@ export const ContextProvider = ({ children }) => {
     date: "",
   });
   const [singleUserId, setSingleUserId] = useState(null);
-  const getFormData = async () => {
-    const response = await http.get("api/registers");
-    const array = response.data.data;
-    console.log(array);
-    setUsers(array);
-  };
+  const getFormData = useCallback( async () => {
+      const response = await http.get("api/registers");
+      const array = response.data.data;
+      console.log(array);
+      setUsers(array);
+    },[]
+  )
+  
   useEffect(() => {
-    getFormData();
-  }, []);
+   getFormData()
+    }, [getFormData]);
 
   // Select the particular  user with id
   const selectUser = (id) => {
@@ -66,6 +70,7 @@ export const ContextProvider = ({ children }) => {
         "Content-Type": "application/json",
       },
     });
+    getFormData()
     if(!response){
       console.log(response)
     }
@@ -94,8 +99,7 @@ export const ContextProvider = ({ children }) => {
               "Content-Type": "application/json",
             },
           }  
-        )
-        ;
+        );
         const result = await response.json();
         console.log(result);
         getFormData();

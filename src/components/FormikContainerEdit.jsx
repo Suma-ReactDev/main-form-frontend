@@ -11,7 +11,7 @@ const FormikContainer = () => {
     {id:1, label:'Gender', value:''},
     {id:2, label:'Male', value:'Male'},
     {id:3, label:'Female', value:'Female'}
-  ]
+  ]  
   return (
     <Formik
       initialValues= {singleUser}
@@ -20,16 +20,12 @@ const FormikContainer = () => {
       validationSchema={Yup.object({
         name:Yup.string()
         .required('Full Name is required')
-        .matches(/^[A-Z][A-z]*[.\s][A-z]+$/,{ message: <em>Full Name is not Valid</em> }),
+        .matches(/^[A-Z]+[a-zA-Z]+$/,{ message: <em>Full Name is not Valid</em> }),
         email:Yup.string().email('It must be a valid Email').required('Email is required'),
         profession:Yup.string()
         .required('Profession is required')
         .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
         age:Yup.number().positive().integer().required('Age is required'),
-        name:Yup.string().required('Full Name is required'),
-        email:Yup.string().required('Email is required'),
-        profession:Yup.string().required('Profession is required'),
-        age:Yup.number().required('Age is required'),
         doB:Yup.date().required('Date of Birth is required'),
         gender:Yup.string().required('Please select gender'),
       })}

@@ -18,7 +18,7 @@ const FormikContainer = () => {
       validationSchema={Yup.object({
         name:Yup.string()
         .required('Full Name is required')
-        .matches(/^[A-Z][A-z]*[.\s][A-z]+$/,{ message: <em>Full Name is not Valid</em> }),
+        .matches(/^[A-Z]+\.?[a-zA-Z]+\s?[A-Z]?[a-zA-Z]\w*$/,{ message: 'Full Name is not Valid' }),
         email:Yup.string().email('It must be a valid Email').required('Email is required'),
         profession:Yup.string()
         .required('Profession is required')
@@ -53,7 +53,7 @@ const FormikContainer = () => {
             <button type='submit' className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold'>
               SUBMIT</button>
             <button type='button' className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold' 
-            ><Link to='/'>Click here to see the List of Users</Link></button>
+            ><Link to='/'>Click here to see the List of Users</Link></button>   
           </Form>
          )
           
