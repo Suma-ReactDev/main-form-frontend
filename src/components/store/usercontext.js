@@ -1,12 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import toast, {Toaster} from 'react-hot-toast'
 import http from "../http";
-import Moment from 'moment'
 import { useCallback } from "react";
 const UserContext = createContext("");
 export const useUserContext = () => useContext(UserContext);
 export const ContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const [usersChanged, setUsersChanged] = useState(false)
   const [singleUser, setSingleUser] = useState({
     name: "",
     email: "",
@@ -16,6 +15,7 @@ export const ContextProvider = ({ children }) => {
     date: "",
   });
   const [singleUserId, setSingleUserId] = useState(null);
+
   const getFormData = useCallback( async () => {
       const response = await http.get("api/registers");
       const array = response.data.data;
@@ -23,9 +23,13 @@ export const ContextProvider = ({ children }) => {
       setUsers(array);
     },[]
   )
-  
   useEffect(() => {
-   getFormData()
+   const getData=getFormData()
+   toast.promise(getData, {
+    loading: 'Loading',
+    success: 'Data retrieved successfully!',
+    error: 'Error when fetching the Data',
+  });
     }, [getFormData]);
 
   // Select the particular  user with id
@@ -51,8 +55,7 @@ export const ContextProvider = ({ children }) => {
       });
   };
   const addFormData = async (values) => {
-    console.log(values);
-    
+    // console.log(values);
     const data = JSON.stringify({
       data: {
         name: values.name,
@@ -63,7 +66,7 @@ export const ContextProvider = ({ children }) => {
         date: values.doB
       },
     });
-    const response = await fetch("http://localhost:1337/api/registers", {
+      const response = await fetch("http://localhost:1337/api/registers", {
       method: "POST",
       body: data,
       headers: {
@@ -77,6 +80,7 @@ export const ContextProvider = ({ children }) => {
     // const resData = await response.json();
     // console.log(resData);
   };
+  
      async function updateUser(values) {
     console.log(singleUserId);
     console.log(values);

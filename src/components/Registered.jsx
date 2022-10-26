@@ -3,6 +3,7 @@ import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import Moment from 'moment'
+import toast, {Toaster} from 'react-hot-toast'
 const Registered = () => {
   const {users, deleteUser, selectUser} = useUserContext();
   
@@ -24,6 +25,7 @@ const Registered = () => {
     flex flex-col gap-5 '>
       <h1 className='mx-auto text-3xl font-bold text-teal-900'>Registered Users</h1>
       <Link to='rgster' className='bg-slate-400 flex justify-center text-center p-5 text-2xl'>Click here to REGISTER</Link>
+      <Toaster /> 
       <table className='border-collapse w-full '>
         <thead>
           <tr className='border-4 border-solid border-teal-900 p-2 font-bold text-2xl bg-cyan-100 text-teal-900'>
