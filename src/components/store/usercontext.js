@@ -54,32 +54,7 @@ export const ContextProvider = ({ children }) => {
         }
       });
   };
-  const addFormData = async (values) => {
-    // console.log(values);
-    const data = JSON.stringify({
-      data: {
-        name: values.name,
-        email: values.email,
-        profession: values.profession,
-        age: values.age,
-        gender: values.gender,
-        date: values.doB
-      },
-    });
-      const response = await fetch("http://localhost:1337/api/registers", {
-      method: "POST",
-      body: data,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    getFormData()
-    if(!response){
-      console.log(response)
-    }
-    // const resData = await response.json();
-    // console.log(resData);
-  };
+  
   
      async function updateUser(values) {
     console.log(singleUserId);
@@ -95,7 +70,7 @@ export const ContextProvider = ({ children }) => {
       },
     });
         const response = await fetch(
-          `http://localhost:1337/api/registers/${singleUserId}`,
+          `http://172.30.99.142:1337/api/registers/${singleUserId}`,
           {
             method: "PUT",
             body: data,
@@ -112,7 +87,7 @@ export const ContextProvider = ({ children }) => {
         } 
   }
   async function deleteUser(id) {
-    const response = await fetch(`http://localhost:1337/api/registers/${id}`, {
+    const response = await fetch(`http://172.30.99.142:1337/api/registers/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +101,6 @@ export const ContextProvider = ({ children }) => {
     }
   }
   const value = {
-    addFormData,
     setUsers,
     users,
     updateUser,
@@ -134,7 +108,8 @@ export const ContextProvider = ({ children }) => {
     selectUser,
     singleUser,
     setSingleUserId,
-    singleUserId
+    singleUserId,
+    getFormData
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

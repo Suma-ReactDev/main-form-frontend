@@ -1,7 +1,8 @@
 import {RegForm, Registered, FormikContainer, DateComponent, FormikContainerEdit} 
 from './components/fileImports'
 import { Routes, Route } from "react-router-dom";
-
+import  {PaginationProvider}  from './components/store/pagination'
+import PaginatedUsers from './components/PiginatedUsers'
 function App() {
   return (
     <div
@@ -14,6 +15,10 @@ function App() {
         <Route path="rgster" element={<FormikContainer />} />
         {/* <Route path="date" element={<DateComponent />} /> */}
         <Route path="rgster-edit" element={<FormikContainerEdit />} />
+        <Route path='paginated' 
+          element={<PaginationProvider>
+                    <PaginatedUsers />
+                  </PaginationProvider>} />
       </Routes>
     </div>
   );

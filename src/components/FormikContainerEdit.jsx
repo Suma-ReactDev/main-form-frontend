@@ -11,16 +11,17 @@ const FormikContainer = () => {
     {id:1, label:'Gender', value:''},
     {id:2, label:'Male', value:'Male'},
     {id:3, label:'Female', value:'Female'}
-  ]  
+  ]
+  const initialValues = {name:'', email:'', profession:'', age:'', doB: '', gender:''} 
+
   return (
     <Formik
       initialValues= {singleUser}
       enableReinitialize= {true}
-      validateOnMount={true}
       validationSchema={Yup.object({
         name:Yup.string()
         .required('Full Name is required')
-        .matches(/^[A-Z]+\.?[a-zA-Z]+\s?[A-Z]?[a-zA-Z]\w*$/,{ message: <em>Full Name is not Valid</em> }),
+        .matches(/^[aA-zZ\s]+$/,{ message: <em>Full Name is not Valid</em> }),
         email:Yup.string().email('It must be a valid Email').required('Email is required'),
         profession:Yup.string()
         .required('Profession is required')
@@ -34,8 +35,8 @@ const FormikContainer = () => {
         if (values){
           console.log('Values can be updated')
           updateUser(values)
-          resetForm({values:''})
           console.log(values)
+          resetForm({values:''})
         }}}
       >
         {formik => {
@@ -52,7 +53,7 @@ const FormikContainer = () => {
             <FormikControl control='select' label='Gender' name='gender' options={dropdownOptions}/>
             <FormikControl control='date'  label='Date of Birth' name='doB'/>
             <button type='submit' className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold'
-            >
+             >
               UPDATE</button>
             {/* {singleUser && <button type='button' 
             className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold'

@@ -7,20 +7,45 @@ import {useUserContext} from './store/usercontext'
 import {Link} from 'react-router-dom'
 import { formikcontrol } from './store/data'
 const FormikContainer = () => {
-  const {addFormData} = useUserContext();
-  const dropdownOptions = [
-    {id:1, label:'Gender', value:''},
-    {id:2, label:'Male', value:'Male'},
-    {id:3, label:'Female', value:'Female'}
-  ]
- const initialValues = {name:'', email:'', profession:'', age:'', doB: '', gender:''} 
+  const {getFormData} = useUserContext();
+  const initialValues = {name:'', email:'', profession:'', age:'', doB: '', gender:''} 
+ const notify = () =>{
+  toast.success('Form is submitted successfully')
+} 
+const addFormData = async (values) => {
+  // console.log(values);
+  const data = JSON.stringify({
+    data: {
+      name: values.name,
+      email: values.email,
+      profession: values.profession,
+      age: values.age,
+      gender: values.gender,
+      date: values.doB
+    },
+  });
+    const response = await fetch("http://172.30.99.142:1337/api/registers", {
+    method: "POST",
+    body: data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  getFormData()
+  if(!response){
+    console.log(response)
+    notify()
+  }
+  // const resData = await response.json();
+  // console.log(resData);
+};
   return (
     <Formik
       initialValues= {initialValues}
       validationSchema={Yup.object({
         name:Yup.string()
-        .required('Full Name is required')
-        .matches(/^[A-Z]+\.?[a-zA-Z]+\s?[A-Z]?[a-zA-Z]\w*$/,{ message: 'Full Name is not Valid' }),
+        .required('Name is required')
+        .matches(/^[aA-zZ\s]+$/,{ message: 'Only alphabets are allowed for this field' }),
         email:Yup.string().email('It must be a valid Email').required('Email is required'),
         profession:Yup.string()
         .required('Profession is required')
@@ -36,15 +61,14 @@ const FormikContainer = () => {
           addFormData(values)
           resetForm({values:''})
           console.log(values)
-        }
-         
+        } 
       }}>
         {formik => {
           console.log(formik)
          return(
           <Form className='flex flex-col text-center items-center justify-center
             mx-auto bg-slate-200 rounded shadow-lg p-3'>  
-            <h3 className='text-3xl text-zinc-600 font-bold'>Registration Form</h3>
+            <h3 className='text-3xl text-zinc-600 font-bold'> Form</h3>
             {formikcontrol.map(
               (item)=>
               <FormikControl control={item.control} name={item.name} key={item.name} {...item} />
@@ -58,11 +82,9 @@ const FormikContainer = () => {
             <button type='submit' className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold'>
               SUBMIT</button>
             <button type='button' className='text-xl bg-slate-300 p-2 m-5 text-zinc-600 font-extrabold' 
-            ><Link to='/'>Click here to see the List of Users</Link></button>
-            <Toaster />   
+            ><Link to='/'>Click here to see the List of Users</Link></button> 
           </Form>
          )
-          
         }}
     </Formik>
   )

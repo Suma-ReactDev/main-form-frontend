@@ -10,9 +10,9 @@ root.render(
   <ContextProvider>
     
       <BrowserRouter>
-      <App />
+        <App />
       </BrowserRouter>
-    
+      
   </ContextProvider>
 );
 
