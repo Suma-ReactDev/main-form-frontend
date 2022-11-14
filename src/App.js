@@ -2,7 +2,7 @@ import {RegForm, Registered, FormikContainer, DateComponent, FormikContainerEdit
 from './components/fileImports'
 import { Routes, Route } from "react-router-dom";
 import  {PaginationProvider}  from './components/store/pagination'
-import PaginatedUsers from './components/PiginatedUsers'
+import PaginatedUsers from './components/PaginatedUsers'
 function App() {
   return (
     <div
