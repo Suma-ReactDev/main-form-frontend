@@ -4,8 +4,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import Moment from 'moment'
 import toast, {Toaster} from 'react-hot-toast'
-const PaginatedUsers = () => {
-  const {users} = usePaginationContext();
+const PaginatedUsers = ({users}) => {
   
   // let user= users && users.map(({id, attributes: {name, email, profession, age}})=>(
   //   <div key={id}>
@@ -24,7 +23,6 @@ const PaginatedUsers = () => {
   
   const data = users ? users.map(({id, attributes: {name, email, profession, age, gender, date}})=>(
     <tr key={id}>
-    <td className={td}>{id}</td>
     <td className={td}>{name}</td>
     <td className={td}>{email}</td>
     <td className={td}>{profession}</td>
@@ -46,7 +44,6 @@ const PaginatedUsers = () => {
       <table className='border-collapse w-full '>
         <thead>
           <tr className='border-4 border-solid border-teal-900 p-2 font-bold text-2xl bg-cyan-100 text-teal-900'>
-            <th>userId</th>
             <th>Name</th>
             <th>Email</th>
             <th>Profession</th>
