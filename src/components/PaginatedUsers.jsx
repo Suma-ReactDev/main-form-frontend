@@ -39,7 +39,6 @@ const PaginatedUsers = ({users}) => {
     <div className='bg-slate-100 mx-auto p-5 rounded-md min-h-screen w-full
     flex flex-col gap-5 '>
       <h1 className='mx-auto text-3xl font-bold text-teal-900'>Registered Users</h1>
-      <Link to='rgster' className='bg-slate-400 flex justify-center text-center p-5 text-2xl'>Click here to REGISTER</Link>
       <Toaster /> 
       <table className='border-collapse w-full '>
         <thead>

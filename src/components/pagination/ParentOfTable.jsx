@@ -4,7 +4,7 @@ import PaginatedUsers from '../PaginatedUsers';
 import ExtractPagination from './ExtractPagination';
 import {  usePaginationContext } from '../store/pagination';
 const ParentOfTable = () => {
-  const { users, setUsers, pageDecrementBtn,renderPageNumbers, pageIncrementBtn, handlePrev, hanldeNext, currentPage, pages, currentItems} = usePaginationContext()
+  const { users, setUsers, currentItems} = usePaginationContext()
   
   // ************** getting the form Data ******************/
   const getFormData = useCallback( async () => {
